@@ -1,0 +1,90 @@
+#include<iostream>
+#include<iomanip>
+#include<string>
+using namespace std;
+
+struct car {
+
+	string brand;
+	int year;
+	string colour;
+	double price;
+
+
+};
+
+void input_data(car cars[], const int size) {
+
+
+	for (int i = 0; i < size; i++) {
+
+		cout << "brand: "; cin>>cars[i].brand;
+		cout << "\nyear: "; cin >> cars[i].year;
+		cout << "\ncolour: "; cin>>cars[i].colour;
+		cout << "\nprice: "; cin >> cars[i].price;
+		cout << "\n";
+	}
+	
+
+}
+
+void output_data(car cars[], const int size) {
+
+	cout << "\n\nbrand\tyear\t\colour\tprice\n";
+	for (int i = 0; i < size; i++) {
+
+		
+		cout<<left<<setw(5) <<cars[i].brand<<"\t";
+		cout<<left<<setw(5) << cars[i].year<<"\t ";
+		cout<<left<<setw(5) <<cars[i].colour<<"\t";
+		cout<<left<<setw(5) << cars[i].price<<"\t ";
+		cout << "\n";
+	}
+
+
+}
+
+int buff;
+
+void sorting_by_year(car cars[], const int size, const char*S) {
+
+	cout << S << "\n\n";
+	for (int i = 0; i < size; i++) {
+
+		for (int j = 1; j < size; j++) {
+           
+			if (cars[j-1].year>cars[j].year) {
+
+				 buff= cars[j - 1].year;
+				 cars[j - 1].year=cars[j].year ;
+				cars[j].year = buff;
+
+			}
+
+
+
+		}
+
+
+	}
+
+}
+
+int main() {
+
+	car cars[30];
+	 int n;
+	cout << "Define the number of the cars: "; cin >> n;
+
+	input_data(cars, n);
+	sorting_by_year(cars, n, "Sorted by year");
+	output_data(cars, n);
+
+	char a = 5;
+	int b = a;
+
+	cout << a << "\n";
+
+
+	return 0;
+}

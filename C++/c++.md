@@ -10,7 +10,7 @@ It allows the user to:
 - Sort the cars by year of production ascendingly
 - Display the data in a formated table
 
-## Programme content
+## Programme structure
 
 ### struct car
 

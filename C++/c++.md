@@ -45,7 +45,6 @@ The cars are sorted by year using the bubble sort
 It lays out the database as a table.
 
 #### Instance output:
-
-brand	year	colour	price
-bmw  	1999 	 red  	2000 	 
-opel 	2001 	 green	1800
+<pre>brand year colour price 
+ bmw  1999  red   5600  
+ opel 2001  blue  3000 </pre>

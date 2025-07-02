@@ -19,9 +19,9 @@ public class FunctionalityFourAndFive {
 
 
         if (isBigger) {
-            System.out.println("Най-голямото число е " + num);
+            System.out.println("The biggest number is " + num);
         } else {
-            System.out.println("Най-малкото число е " + num);
+            System.out.println("The smallest number is " + num);
         }
     }
 }

@@ -5,19 +5,18 @@ public class Main {
 
     public static Scanner sc = new Scanner(System.in);
 
-
     public static String menuOptions =
             """
-                            1. Търсене на позиция на конкретно число
-                            2. Разбъркване на числата
-                            3. Изчисляване на сбора на всички числа
-                            4. Намиране на най-голямото число
-                            5. Намиране на най-малкото число
-                            6. Намиране средно-аритметично на числата
-                            7. Проверка за симетричност на масива от числа
-                            8. Обръщане на масива от числа
-                            9 .Визуализирай въведените числа
-                            10. Изход
+                            1. Looking for a number's position
+                            2. Shuffle the numbers
+                            3. Find the numbers' sum
+                            4. Find the biggest number
+                            5. Find the smallest number
+                            6. Find the numbers' average
+                            7. Check if the array is symmetrical
+                            8. Print the numbers' array in reverse
+                            9. Print the input
+                            10.Exit
                     """;
 
 
@@ -26,6 +25,7 @@ public class Main {
         int choice = Option.choice();
         if (choice == 10) {
             exit(0);
+            System.out.println("Bye");
         } else {
             ArrayOperations.functionalities(arr,choice);
         }
@@ -33,7 +33,7 @@ public class Main {
 
     public static void main(String[] args) {
         int[] arr;
-        System.out.println("Въведете дължината на масива: ");
+        System.out.println("Enter array's length: ");
         arr = ArrayInput.inputArray();
         menu(arr);
     }

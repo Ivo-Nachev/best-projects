@@ -1,5 +1,7 @@
 public class FunctionalitySeven {
+    
     public static void seventhFunction(int[] arr) {
+        
         boolean sym=true;
 
         for (int i = 0; i < arr.length ; i++) {
@@ -10,9 +12,9 @@ public class FunctionalitySeven {
         }
 
         if(sym){
-            System.out.println("Масивът е симетричен.");
+            System.out.println("The array is symmetrical.");
         }else {
-            System.out.println("Масивът не е симетричен.");
+            System.out.println("The array is not symmetrical.");
         }
     }
 }

@@ -6,7 +6,7 @@ public class Option {
 
         System.out.println("\n"+ Main.menuOptions);
         do {
-            System.out.println("Изберете една от опциите между 1 и 10, като въведете число.");
+            System.out.println("Choose one of the options between 1 to 10.");
             choice= Main.sc.nextInt();
 
         }while (choice<1 || choice>10);

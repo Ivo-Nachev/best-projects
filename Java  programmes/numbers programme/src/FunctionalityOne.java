@@ -1,7 +1,7 @@
 public class FunctionalityOne {
     public static void firstFunctionality(int []arr) {
 
-        System.out.println("Напишете търсеното от вас число:");
+        System.out.println("Enter the number you are looking for: ");
         int value = Main.sc.nextInt();
 
         int[] bubbleArray = new int[arr.length];
@@ -40,7 +40,7 @@ public class FunctionalityOne {
 
                 while (true){
                     if(arr[i] == bubbleArray[middle]){
-                        System.out.println("Числото е намерено на позиция номер " + (i+1) + " в масива.");
+                        System.out.println("The number is found on " + (i+1) + ". position.");
                         break;
                     }
                     i++;
@@ -57,7 +57,7 @@ public class FunctionalityOne {
 
             if (down > up) {
 
-                System.out.println("Няма такава стойност в масива!");
+                System.out.println("There is not such a value!");
                 break;
             }
         }

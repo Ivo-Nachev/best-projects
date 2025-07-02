@@ -7,10 +7,10 @@ public class FunctionalityThreeAndSix {
         }
 
         if (choice == 3) {
-            System.out.println("Сумата от елементите на масива е " + (int)sum+".");
+            System.out.println("Numbers' sum is " + (int)sum+".");
         } else  {
             sum /= arr.length;
-            System.out.printf("Средното аритметично на елементите от масива е %.2f.",sum);
+            System.out.printf("Numbers' average is %.2f.",sum);
         }
     }
 }

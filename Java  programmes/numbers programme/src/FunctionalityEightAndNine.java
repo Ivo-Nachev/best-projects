@@ -1,15 +1,13 @@
 public class FunctionalityEightAndNine {
 
-    public static void ninthFunctionality(int[]arr, int choice) {
+    public static void ninthAndEightFunctionality(int[] arr, int choice) {
 
-        if(choice==8){
-            for (int i = arr.length-1; i>=0; i--) {
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (choice == 8) {
+                System.out.println("arr[" + (i + 1) + "]= " + arr[i]);
 
-                System.out.println("arr["+(i+1)+"]= "+arr[i]);
-            }
-        }else{
-            for (int i = 0; i < arr.length ; i++) {
-                System.out.println("arr["+(i+1)+"]= "+arr[i]);
+            } else {
+                System.out.println("arr[" + (arr.length - 1 - i) + "]= " + arr[arr.length - 1 - i]);
             }
         }
 

@@ -3,23 +3,21 @@ import java.util.Random;
 public class FunctionalityTwo {
     public static void secondFunction(int[] arr) {
         Random rand = new Random();
-        System.out.println("Масивът с разбъркани елементи:");
+        System.out.println("Shuffled array: ");
         int[] randPositions = new int[arr.length];
 
-        int[] randNum = new int[randPositions.length];
-
-        int counter = 0;
+        int[] randIndex = new int[randPositions.length];
 
         int i=0;
 
-        while (counter != randPositions.length || i<randPositions.length) {
+        while ( i<randPositions.length) {
 
-            randNum[i] = rand.nextInt(arr.length-1+1);
+            randIndex[i] = rand.nextInt(arr.length);
 
-            if (randPositions[randNum[i]] == 0) {
-                System.out.println("arr["+randNum[i]+"]= "+arr[randNum[i]]);
-                randPositions[randNum[i]] = 1;
-                counter++;
+            if (randPositions[randIndex[i]] == 0) {
+                System.out.println("arr["+randIndex[i]+"]= "+arr[randIndex[i]]);
+                randPositions[randIndex[i]] = 1;
+
                 i++;
             }
         }

@@ -12,7 +12,7 @@ public class ArrayOperations {
 
             case 7 ->FunctionalitySeven.seventhFunction(arr);
 
-            case 8,9 -> FunctionalityEightAndNine.ninthFunctionality(arr, choice);
+            case 8,9 -> FunctionalityEightAndNine.ninthAndEightFunctionality(arr, choice);
         }
         Main.menu(arr);
     }

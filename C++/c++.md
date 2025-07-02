@@ -7,10 +7,10 @@ This C++ programme is a simple example of a database for cars.
 It allows the user to:
 - enter information about cars (brand, year, colour, price)
 - enter data about at most 30 cars 
-- Sort the cars by year of production ascendingly
-- Display the data in a formated table
+- Sort the cars by year of production in ascending order
+- Display the data in a formatted table
 
-## Programme content
+## Programme structure
 
 ### struct car
 

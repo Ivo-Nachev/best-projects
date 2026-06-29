@@ -1,3 +1,3 @@
 # My best projects
 ## The JAVA project is a desktop app that communicates with a relational data base. It is an example app for registration of cars and their owners.
-## The "fast typing site" project is a game site where you have to write the Cyrilic or Latin alphabet or an example of a sentence as fast as you can.
+## The "fast typing site" project is a game site where you have to write the Cyrilic or Latin alphabet or an example sentenceas fast as you can.

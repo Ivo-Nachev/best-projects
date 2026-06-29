@@ -1,0 +1,3 @@
+[submodule "Java app/Practice-project"]
+	path = Java app/Practice-project
+	url = https://github.com/Ivo-Nachev/Practice-project.git

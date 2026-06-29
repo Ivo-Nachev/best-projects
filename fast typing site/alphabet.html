@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тайпинг Състезание - Азбуки и Текст</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .game-setup {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+        
+        .game-setup h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .option-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .option-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .option-btn:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .option-btn.active {
+            background-color: #1e3c72;
+            color: white;
+            border-color: #1e3c72;
+        }
+        
+        .custom-text-container {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .custom-text-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        #custom-text {
+            width: 100%;
+            height: 100px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+        
+        #custom-text:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+        
+        .text-to-type {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #target-text {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #333;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .typing-area {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+        
+        #user-input {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            resize: none;
+            margin-bottom: 20px;
+            font-family: monospace;
+        }
+        
+        #user-input:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+        
+        .timer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .timer {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1e3c72;
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 8px;
+            min-width: 180px;
+            text-align: center;
+        }
+        
+        .instructions {
+            color: #666;
+            font-size: 0.95rem;
+            max-width: 400px;
+        }
+        
+        .instructions i {
+            color: #1e3c72;
+            margin-right: 5px;
+        }
+        
+        .results-table {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            overflow-x: auto;
+        }
+        
+        .results-table h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            color: #1e3c72;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .fastest-game {
+            background-color: #fff9e6;
+        }
+        
+        .stats {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            color: #666;
+            border-top: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            background-color: #e6f7ff;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        .correct {
+            color: #28a745;
+        }
+        
+        .incorrect {
+            color: #dc3545;
+            text-decoration: line-through;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .option-btn {
+                min-width: 100%;
+            }
+            
+            .timer {
+                font-size: 2rem;
+                min-width: 150px;
+            }
+            
+            #target-text {
+                font-size: 1.2rem;
+            }
+        }
+        
+        .game-status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .game-status.active {
+            display: block;
+        }
+        
+        .game-status.ready {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .game-status.typing {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .game-status.finished {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Тайпинг Състезание</h1>
+            <p class="subtitle">Изберете вариант за състезание и се опитайте да въведете текста възможно най-бързо и точно!</p>
+        </header>
+        
+        <div class="game-setup">
+            <h2>Избор на текст за състезание</h2>
+            <div class="option-group">
+                <button class="option-btn active" id="english-alphabet">
+                    <i class="fas fa-language"></i> Английска азбука
+                </button>
+                <button class="option-btn" id="bulgarian-alphabet">
+                    <i class="fas fa-font"></i> Българска азбука
+                </button>
+                <button class="option-btn" id="custom-text-btn">
+                    <i class="fas fa-edit"></i> Произволен текст
+                </button>
+            </div>
+            
+            <div class="custom-text-container" id="custom-text-container">
+                <textarea id="custom-text" placeholder="Въведете вашия текст тук...">Бързата кафява лисица прескача мързеливото куче.</textarea>
+                <p><i class="fas fa-info-circle"></i> Текстът, който въведете тук, ще се използва за състезанието.</p>
+            </div>
+        </div>
+        
+        <div class="text-to-type">
+            <div id="target-text">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+        </div>
+        
+        <div class="typing-area">
+            <textarea id="user-input" placeholder="Започнете да пишете тук... Натиснете [Enter] за да стартирате/спрете таймера."></textarea>
+            
+            <div class="game-status" id="game-status">Готов за започване</div>
+            
+            <div class="timer-container">
+                <div class="timer" id="timer">00:00:00</div>
+                <div class="instructions">
+                    <p><i class="fas fa-keyboard"></i> <strong>Инструкции:</strong></p>
+                    <p>1. Изберете тип текст за състезание</p>
+                    <p>2. Натиснете [Enter] в полето за писане, за да стартирате таймера</p>
+                    <p>3. Копирайте текста горе възможно най-бързо и точно</p>
+                    <p>4. Натиснете [Enter] отново, за да спрете таймера</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-table">
+            <h2>Резултати от изиграните игри</h2>
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Тип</th>
+                        <th>Време</th>
+                        <th>Точки</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body">
+                    <!-- Резултатите ще се добавят тук чрез JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="average-time">00:00:00</div>
+                <div class="stat-label">Средно време за игра</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="games-played">0</div>
+                <div class="stat-label">Общо игри</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="fastest-game">-</div>
+                <div class="stat-label">Най-бърза игра (№)</div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Тайпинг Състезание &copy; 2023 | Разработено за упражнение на бързо писане</p>
+        </footer>
+    </div>
+
+    <script>
+        // Константи и глобални променливи
+        const ENGLISH_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const BULGARIAN_ALPHABET = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЬЮЯ";
+        
+        // DOM елементи
+        const englishAlphabetBtn = document.getElementById('english-alphabet');
+        const bulgarianAlphabetBtn = document.getElementById('bulgarian-alphabet');
+        const customTextBtn = document.getElementById('custom-text-btn');
+        const customTextContainer = document.getElementById('custom-text-container');
+        const customTextArea = document.getElementById('custom-text');
+        const targetText = document.getElementById('target-text');
+        const userInput = document.getElementById('user-input');
+        const timerDisplay = document.getElementById('timer');
+        const resultsBody = document.getElementById('results-body');
+        const averageTimeDisplay = document.getElementById('average-time');
+        const gamesPlayedDisplay = document.getElementById('games-played');
+        const fastestGameDisplay = document.getElementById('fastest-game');
+        const gameStatus = document.getElementById('game-status');
+        
+        // Променливи за състоянието на играта
+        let gameActive = false;
+        let startTime = 0;
+        let timerInterval = null;
+        let currentTime = 0;
+        let gameResults = [];
+        let selectedOption = 'english-alphabet';
+        
+        // Инициализация
+        function init() {
+            loadGameResults();
+            updateStats();
+            setupEventListeners();
+            
+            // Задаваме фокус върху полето за въвеждане
+            userInput.focus();
+        }
+        
+        // Настройка на event listeners
+        function setupEventListeners() {
+            // Бутони за избор на опция
+            englishAlphabetBtn.addEventListener('click', () => selectOption('english-alphabet'));
+            bulgarianAlphabetBtn.addEventListener('click', () => selectOption('bulgarian-alphabet'));
+            customTextBtn.addEventListener('click', () => selectOption('custom-text'));
+            
+            // Поле за въвеждане на текст
+            userInput.addEventListener('keydown', handleKeyDown);
+            userInput.addEventListener('input', handleInput);
+            
+            // Промяна на потребителския текст
+            customTextArea.addEventListener('input', () => {
+                if (selectedOption === 'custom-text') {
+                    targetText.textContent = customTextArea.value || "Моля, въведете текст за състезанието.";
+                }
+            });
+        }
+        
+        // Избор на опция за игра
+        function selectOption(option) {
+            selectedOption = option;
+            
+            // Актуализиране на активния бутон
+            englishAlphabetBtn.classList.remove('active');
+            bulgarianAlphabetBtn.classList.remove('active');
+            customTextBtn.classList.remove('active');
+            
+            if (option === 'english-alphabet') {
+                englishAlphabetBtn.classList.add('active');
+                targetText.textContent = ENGLISH_ALPHABET.split('').join(' ');
+                customTextContainer.classList.remove('active');
+            } else if (option === 'bulgarian-alphabet') {
+                bulgarianAlphabetBtn.classList.add('active');
+                targetText.textContent = BULGARIAN_ALPHABET.split('').join(' ');
+                customTextContainer.classList.remove('active');
+            } else if (option === 'custom-text') {
+                customTextBtn.classList.add('active');
+                targetText.textContent = customTextArea.value || "Моля, въведете текст за състезанието.";
+                customTextContainer.classList.add('active');
+            }
+            
+            // Нулиране на полето за въвеждане
+            userInput.value = '';
+            gameStatus.textContent = "Готов за започване";
+            gameStatus.className = "game-status active ready";
+            
+            // Спиране на таймера, ако работи
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            
+            timerDisplay.textContent = "00:00:00";
+            gameActive = false;
+        }
+        
+        // Обработка на натискане на клавиш
+        function handleKeyDown(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                
+                if (!gameActive) {
+                    // Стартиране на играта
+                    startGame();
+                } else {
+                    // Спиране на играта
+                    finishGame();
+                }
+            }
+        }
+        
+        // Обработка на въвеждане на текст
+        function handleInput() {
+            if (gameActive) {
+                // Проверка дали потребителят е въвел целия текст
+                const target = targetText.textContent;
+                const input = userInput.value;
+                
+                if (input === target) {
+                    // Автоматично спиране на играта при пълно съвпадение
+                    finishGame();
+                }
+            }
+        }
+        
+        // Стартиране на играта
+        function startGame() {
+            if (gameActive) return;
+            
+            gameActive = true;
+            startTime = Date.now();
+            currentTime = 0;
+            
+            // Стартиране на таймера
+            timerInterval = setInterval(updateTimer, 10);
+            
+            // Актуализиране на статуса
+            gameStatus.textContent = "Пишете! Натиснете [Enter] за да спрете.";
+            gameStatus.className = "game-status active typing";
+            
+            // Нулиране на полето за въвеждане
+            userInput.value = '';
+            userInput.focus();
+        }
+        
+        // Актуализиране на таймера
+        function updateTimer() {
+            currentTime = Date.now() - startTime;
+            
+            // Форматиране на времето
+            const hours = Math.floor(currentTime / 3600000);
+            const minutes = Math.floor((currentTime % 3600000) / 60000);
+            const seconds = Math.floor((currentTime % 60000) / 1000);
+            const milliseconds = Math.floor((currentTime % 1000) / 10);
+            
+            timerDisplay.textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Приключване на играта
+        function finishGame() {
+            if (!gameActive) return;
+            
+            gameActive = false;
+            
+            // Спиране на таймера
+            clearInterval(timerInterval);
+            
+            // Изчисляване на резултата
+            const target = targetText.textContent;
+            const input = userInput.value;
+            const accuracy = calculateAccuracy(target, input);
+            
+            // Запазване на резултата
+            saveGameResult(target, input, currentTime, accuracy);
+            
+            // Актуализиране на статуса
+            gameStatus.textContent = `Играта приключи! Точност: ${accuracy}%`;
+            gameStatus.className = "game-status active finished";
+            
+            // Актуализиране на статистиката
+            updateStats();
+            
+            // Показване на резултата
+            setTimeout(() => {
+                alert(`Играта приключи!\nВреме: ${formatTime(currentTime)}\nТочност: ${accuracy}%`);
+            }, 100);
+        }
+        
+        // Изчисляване на точността
+        function calculateAccuracy(target, input) {
+            if (!target || !input) return 0;
+            
+            const targetChars = target.split('');
+            const inputChars = input.split('');
+            let correctChars = 0;
+            
+            for (let i = 0; i < Math.min(targetChars.length, inputChars.length); i++) {
+                if (targetChars[i] === inputChars[i]) {
+                    correctChars++;
+                }
+            }
+            
+            // Добавяне на бонус за допълнителни правилни символи
+            const maxLength = Math.max(targetChars.length, inputChars.length);
+            const accuracy = (correctChars / maxLength) * 100;
+            
+            return Math.min(100, Math.round(accuracy * 100) / 100);
+        }
+        
+        // Запазване на резултата от играта
+        function saveGameResult(target, input, time, accuracy) {
+            const gameType = getGameTypeName();
+            const gameNumber = gameResults.length + 1;
+            const now = new Date();
+            const dateString = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth()+1).toString().padStart(2, '0')}.${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            const result = {
+                id: gameNumber,
+                type: gameType,
+                time: time,
+                accuracy: accuracy,
+                date: dateString,
+                timestamp: now.getTime()
+            };
+            
+            gameResults.push(result);
+            
+            // Запазване в localStorage
+            localStorage.setItem('typingGameResults', JSON.stringify(gameResults));
+            
+            // Добавяне в таблицата
+            addResultToTable(result);
+        }
+        
+        // Зареждане на резултатите от localStorage
+        function loadGameResults() {
+            const savedResults = localStorage.getItem('typingGameResults');
+            if (savedResults) {
+                gameResults = JSON.parse(savedResults);
+                
+                // Добавяне на всички резултати в таблицата
+                gameResults.forEach(result => {
+                    addResultToTable(result);
+                });
+            }
+        }
+        
+        // Добавяне на резултат в таблицата
+        function addResultToTable(result) {
+            const row = document.createElement('tr');
+            
+            // Определяне дали това е най-бързата игра
+            const fastestGame = getFastestGame();
+            if (fastestGame && result.id === fastestGame.id) {
+                row.classList.add('fastest-game');
+            }
+            
+            row.innerHTML = `
+                <td>${result.id}</td>
+                <td>${result.type}</td>
+                <td>${formatTime(result.time)}</td>
+                <td>${result.accuracy}%</td>
+                <td>${result.date}</td>
+            `;
+            
+            resultsBody.appendChild(row);
+        }
+        
+        // Актуализиране на статистиката
+        function updateStats() {
+            // Брой игри
+            gamesPlayedDisplay.textContent = gameResults.length;
+            
+            // Средно време
+            if (gameResults.length > 0) {
+                const totalTime = gameResults.reduce((sum, result) => sum + result.time, 0);
+                const averageTime = totalTime / gameResults.length;
+                averageTimeDisplay.textContent = formatTime(averageTime);
+            } else {
+                averageTimeDisplay.textContent = "00:00:00";
+            }
+            
+            // Най-бърза игра
+            const fastestGame = getFastestGame();
+            if (fastestGame) {
+                fastestGameDisplay.textContent = `#${fastestGame.id}`;
+            } else {
+                fastestGameDisplay.textContent = "-";
+            }
+        }
+        
+        // Намиране на най-бързата игра
+        function getFastestGame() {
+            if (gameResults.length === 0) return null;
+            
+            return gameResults.reduce((fastest, current) => {
+                return current.time < fastest.time ? current : fastest;
+            });
+        }
+        
+        // Форматиране на времето
+        function formatTime(milliseconds) {
+            if (!milliseconds) return "00:00:00";
+            
+            const hours = Math.floor(milliseconds / 3600000);
+            const minutes = Math.floor((milliseconds % 3600000) / 60000);
+            const seconds = Math.floor((milliseconds % 60000) / 1000);
+            const ms = Math.floor((milliseconds % 1000) / 10);
+            
+            if (hours > 0) {
+                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+            }
+        }
+        
+        // Връщане на името на типа игра
+        function getGameTypeName() {
+            switch(selectedOption) {
+                case 'english-alphabet': return 'Английска азбука';
+                case 'bulgarian-alphabet': return 'Българска азбука';
+                case 'custom-text': return 'Произволен текст';
+                default: return 'Неизвестен';
+            }
+        }
+        
+        // Инициализация на играта при зареждане на страницата
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
